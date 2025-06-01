@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(VertxExtension.class)
-public class TestMigrationVerticle {
+class TestMigrationVerticle {
   private static final String TABLE_NAME = "TASKS";
 
   @BeforeEach

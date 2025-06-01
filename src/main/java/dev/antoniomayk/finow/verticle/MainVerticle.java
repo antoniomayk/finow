@@ -8,8 +8,18 @@ import io.vertx.core.Vertx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Primary finow verticle responsible for orchestrating the deployment of other verticles in the
+ * application.
+ *
+ * <p>Deploys the {@code MigrationVerticle} to handle database schema migrations, followed by the
+ * {@code ApiVerticle} to expose the application's API.
+ *
+ * <p>The deployment process is designed to be sequential: migrations must complete before the API
+ * becomes active.
+ */
 public class MainVerticle extends VerticleBase {
-  private static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+  private static final Logger log = LoggerFactory.getLogger(MainVerticle.class);
 
   @Override
   public Future<?> start() throws Exception {
@@ -19,11 +29,11 @@ public class MainVerticle extends VerticleBase {
         .flatMap(unused -> deployApiVerticle(vertx))
         .onSuccess(
             deploymentId ->
-                LOG.info(
-                    "finow start successfully in "
+                log.info(
+                    "Finow start successfully in "
                         + (System.currentTimeMillis() - bootTime)
                         + " ms."))
-        .onFailure(throwable -> LOG.error(throwable.getMessage(), throwable));
+        .onFailure(throwable -> log.error(throwable.getMessage(), throwable));
   }
 
   private Future<Void> deployMigrationVerticle(Vertx vertx) {

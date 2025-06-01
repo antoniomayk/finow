@@ -5,8 +5,15 @@ import io.vertx.core.VerticleBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * {@code ApiVerticle} is responsible for exposing the aplication's HTTP API.
+ *
+ * <p>It initializes and manages an HTTP server, handling incoming web requests and serving
+ * responses at port 8888. This verticle acts as the entry point for client-side intereaction with
+ * the Finow application.
+ */
 public class ApiVerticle extends VerticleBase {
-  private static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+  private static final Logger log = LoggerFactory.getLogger(MainVerticle.class);
 
   @Override
   public Future<?> start() {
@@ -15,7 +22,7 @@ public class ApiVerticle extends VerticleBase {
     return httpServer
         .requestHandler(ctx -> ctx.response().end("finow-api"))
         .listen(httpPort)
-        .onSuccess(http -> LOG.info("HTTP server started on port " + httpPort))
-        .onFailure(throwable -> LOG.error(throwable.getMessage()));
+        .onSuccess(http -> log.info("HTTP server started on port " + httpPort))
+        .onFailure(throwable -> log.error(throwable.getMessage()));
   }
 }

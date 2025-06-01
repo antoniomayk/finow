@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(VertxExtension.class)
-public class TestJdbcUtils {
+class TestJdbcUtils {
 
   @Test
   void createPoolAndCheckSqlStatement(Vertx vertx, VertxTestContext testContext) {
